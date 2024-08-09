@@ -28,5 +28,7 @@ namespace Global
 
 	const sf::String Config::compare_sfx_sound_path = "assets/sounds/compare_sfx.wav";
 
+	const  sf::String Config::scream_sfx_sound_path = "assets/sounds/scream.mp3";
+
 	const sf::String Config::button_click_sound_path = "assets/sounds/button_click_sound.wav";
 }
