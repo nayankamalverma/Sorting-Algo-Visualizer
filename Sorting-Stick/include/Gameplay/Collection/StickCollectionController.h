@@ -45,6 +45,7 @@ namespace Gameplay
             void resetVariables();
 
             void processBubbleSort();
+            void processInsertionSort();
             void processSortThreadState();
 
             void setCompletedColor();
