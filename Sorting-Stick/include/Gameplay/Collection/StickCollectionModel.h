@@ -38,6 +38,8 @@ namespace Gameplay
 
             const long bubble_sort_operation_delay = 100;
             const long insertion_sort_operation_delay = 150;
+            const long selection_sort_operation_delay = 140;
+
             const long initial_color_delay = 40;
 
             StickCollectionModel();
