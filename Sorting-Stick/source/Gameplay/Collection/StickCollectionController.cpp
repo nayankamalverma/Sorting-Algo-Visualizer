@@ -170,6 +170,12 @@ namespace Gameplay
 				current_operation_delay = collection_model->selection_sort_operation_delay;
 				sort_thread = std::thread(&StickCollectionController::processSelectionSort, this);
 				break;
+			case SortType::MERGE_SORT:
+				time_complexity = "O(n Log n)";
+				current_operation_delay = collection_model->merge_sort_operation_delay;
+				sort_thread = std::thread(&StickCollectionController::processInPlaceMergeSort, this);
+				break;
+
 			}
 
 		}
@@ -309,6 +315,74 @@ namespace Gameplay
 			// Ensure the last stick is also marked as sorted
 			sticks[sticks.size() - 1]->stick_view->setFillColor(collection_model->placement_position_element_color);
 			setCompletedColor();
+		}
+
+		void StickCollectionController::processInPlaceMergeSort()
+		{
+			inPlaceMergeSort(0, sticks.size() - 1);
+			setCompletedColor();
+		}
+
+
+		void StickCollectionController::inPlaceMergeSort(int left, int right)
+		{
+			if (left < right) {
+				int mid = left + (right - left) / 2;
+
+				inPlaceMergeSort(left, mid);
+				inPlaceMergeSort(mid + 1, right);
+				inPlaceMerge(left, mid, right);
+			}
+		}
+		
+
+		void StickCollectionController::inPlaceMerge(int left, int mid, int right)
+		{
+			SoundService* sound = Global::ServiceLocator::getInstance()->getSoundService();
+			int start2 = mid + 1;
+
+			// If the direct merge is already sorted
+			if (sticks[mid]->data <= sticks[start2]->data) {
+				number_of_comparisons++;
+				number_of_array_access += 2;
+				return;
+			}
+
+			// Two pointers to maintain start of both arrays to merge
+			while (left <= mid && start2 <= right) {
+				number_of_comparisons++;
+				number_of_array_access += 2;
+				if (sticks[left]->data <= sticks[start2]->data) {
+					left++;
+				}
+				else {
+					Stick* value = sticks[start2];
+					int index = start2;
+
+					// Shift all the elements between element 1 and element 2, right by 1.
+					while (index != left) {
+						sticks[index] = sticks[index - 1];
+						index--;
+						number_of_array_access += 2;
+					}
+					sticks[left] = value;
+					number_of_array_access++;
+
+					// Update all the pointers
+					left++;
+					mid++;
+					start2++;
+
+					// Visual updates for position changes
+					updateStickPosition();
+				}
+
+				// Instant color change
+				sound->playSound(SoundType::COMPARE_SFX);
+				sticks[left - 1]->stick_view->setFillColor(collection_model->processing_element_color);
+				std::this_thread::sleep_for(std::chrono::milliseconds(current_operation_delay));
+				sticks[left - 1]->stick_view->setFillColor(collection_model->element_color);
+			}
 		}
 
 
