@@ -40,6 +40,7 @@ namespace Gameplay
             const long insertion_sort_operation_delay = 150;
             const long selection_sort_operation_delay = 140;
             const long merge_sort_operation_delay = 150;
+            const long quick_sort_operation_delay = 150;
 
             const long initial_color_delay = 40;
 
