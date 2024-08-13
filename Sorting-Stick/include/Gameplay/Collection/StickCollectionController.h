@@ -48,9 +48,13 @@ namespace Gameplay
             void processInsertionSort();
             void processSelectionSort();
             void processInPlaceMergeSort();
+            void processMergeSort();
 
             void inPlaceMergeSort(int left, int right);
             void inPlaceMerge(int left, int mid, int right);
+            void mergeSort(int left, int right);
+            void merge(int left, int mid, int right);
+
 
 
             void processSortThreadState();
