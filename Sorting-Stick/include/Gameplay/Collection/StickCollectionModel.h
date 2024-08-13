@@ -24,7 +24,7 @@ namespace Gameplay
         class StickCollectionModel
         {
         public:
-            int number_of_elements = 50;
+            int number_of_elements = 100;
             const float max_element_height = 820.f;
             float elements_spacing = 25.f; //acttual amount of spacing between sticks
             float space_percentage = 0.40f; //the percentage of the screen space allocated to spacing (0 - 1)
@@ -41,6 +41,7 @@ namespace Gameplay
             const long selection_sort_operation_delay = 140;
             const long merge_sort_operation_delay = 150;
             const long quick_sort_operation_delay = 150;
+            const long radix_sort_operation_delay = 130;
 
             const long initial_color_delay = 40;
 
