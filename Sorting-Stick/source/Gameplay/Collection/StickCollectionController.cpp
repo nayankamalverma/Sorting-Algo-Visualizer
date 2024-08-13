@@ -173,7 +173,7 @@ namespace Gameplay
 			case SortType::MERGE_SORT:
 				time_complexity = "O(n Log n)";
 				current_operation_delay = collection_model->merge_sort_operation_delay;
-				sort_thread = std::thread(&StickCollectionController::processMergeSort, this);
+				sort_thread = std::thread(&StickCollectionController::processInPlaceMergeSort, this);
 				break;
 
 			}
